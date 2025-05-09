@@ -29,3 +29,15 @@ class Methods:
     def update_user(token, **data):
         headers = {'Authorization': token}
         return requests.patch(USER, json=data, headers=headers)
+
+    @staticmethod
+    @allure.step("Создание заказа")
+    def create_order(token, ingredients):
+        headers = {'Authorization': token}
+        data = {"ingredients": ingredients}
+        return requests.post(ORDERS, json=data, headers=headers)
+
+    @staticmethod
+    @allure.step("Получение списка ингредиентов")
+    def get_ingredients():
+        return requests.get(INGREDIENTS)

@@ -37,3 +37,9 @@ def new_user():
 
     with allure.step("Удаление тестового пользователя"):
         Methods.delete_user(access_token)
+
+@pytest.fixture
+def ingredients():
+    with allure.step("Получение списка ингредиентов"):
+        response = Methods.get_ingredients()
+    return response.json()['data']

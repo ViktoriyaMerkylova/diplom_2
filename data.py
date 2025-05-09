@@ -47,3 +47,6 @@ CREATE_ORDER_NO_INGREDIENTS = {"success": False, "message": "Ingredient ids must
 
 GET_ORDERS_SUCCESS = {"success": True}
 GET_ORDERS_UNAUTHORIZED = {"success": False, "message": "You should be authorised"}
+
+def generate_order(ingredients, count=3):
+    return sample([ing['_id'] for ing in ingredients], count)
