@@ -23,3 +23,9 @@ class Methods:
     def delete_user(token):
         headers = {'Authorization': token}
         return requests.delete(USER, headers=headers)
+
+    @staticmethod
+    @allure.step("Изменение данных пользователя")
+    def update_user(token, **data):
+        headers = {'Authorization': token}
+        return requests.patch(USER, json=data, headers=headers)
