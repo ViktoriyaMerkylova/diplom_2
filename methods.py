@@ -41,3 +41,9 @@ class Methods:
     @allure.step("Получение списка ингредиентов")
     def get_ingredients():
         return requests.get(INGREDIENTS)
+
+    @staticmethod
+    @allure.step("Получение заказов пользователя")
+    def get_user_orders(token):
+        headers = {'Authorization': token}
+        return requests.get(ORDERS, headers=headers)

@@ -1,0 +1,26 @@
+import allure
+import pytest
+
+from methods import Methods
+from data import *
+from helpers import Checker
+
+
+@allure.feature("Получение заказов конкретного пользователя")
+class TestGetUserOrders:
+
+    @allure.title("Успешное получение заказов авторизованным пользователем")
+    @pytest.mark.positive
+    def test_get_orders_authorized(self, new_user, create_new_order):
+        create_new_order()
+        response = Methods.get_user_orders(new_user['access_token'])
+        assert Checker.check_status_code(response, SUCCESS_CODE) and \
+            Checker.check_field_exists(response, 'orders') and \
+            len(response.json()['orders']) > 0
+
+    @allure.title("Попытка получения заказов неавторизованным пользователем")
+    @pytest.mark.negative
+    def test_get_orders_unauthorized(self):
+        response = Methods.get_user_orders("")
+        assert Checker.check_status_code(response, UNAUTHORIZED_CODE) and \
+               Checker.check_response_field(response, 'message', GET_ORDERS_UNAUTHORIZED['message'])

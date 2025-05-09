@@ -2,7 +2,7 @@ import allure
 import pytest
 
 from methods import Methods
-from data import generate_user
+from data import generate_user, generate_order
 
 
 @pytest.fixture
@@ -43,3 +43,14 @@ def ingredients():
     with allure.step("Получение списка ингредиентов"):
         response = Methods.get_ingredients()
     return response.json()['data']
+
+@pytest.fixture
+def create_new_order(new_user, ingredients):
+    def _create_order():
+        order_data = generate_order(ingredients)
+        with allure.step("Создание тестового заказа"):
+            response = Methods.create_order(new_user['access_token'], order_data)
+        assert response.status_code == 200, f"Не удалось создать заказ. Код ответа: {response.status_code}"
+        return response.json()
+
+    return _create_order
