@@ -17,7 +17,7 @@ fake = Faker()
 
 def generate_user():
     return {
-        "email": f'panda{fake.email()}',
+        "email": f'val{fake.email()}',
         "password": fake.password(),
         "name": fake.name()
     }
