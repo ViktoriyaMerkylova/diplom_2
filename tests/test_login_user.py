@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from methods import Methods
+from methods import UserMethods
 from data import *
 from helpers import Checker
 
@@ -12,7 +12,7 @@ class TestLoginUser:
     @pytest.mark.positive
     def test_login_user(self, create_user):
         email, password, _ = create_user
-        response = Methods.login_user(email, password)
+        response = UserMethods.login_user(email, password)
         assert Checker.check_status_code(response, SUCCESS_CODE) and \
                Checker.check_field_exists(response, 'accessToken')
 
@@ -22,7 +22,7 @@ class TestLoginUser:
         correct_email, correct_password, _ = create_user
         wrong_email = "error@gmail.com"
 
-        response = Methods.login_user(wrong_email, correct_password)
+        response = UserMethods.login_user(wrong_email, correct_password)
         assert Checker.check_status_code(response, UNAUTHORIZED_CODE) and \
                Checker.check_response_field(response, 'message', LOGIN_FAILED['message'])
 
@@ -32,6 +32,6 @@ class TestLoginUser:
         correct_email, correct_password, _ = create_user
         wrong_password = "errorpassword"
 
-        response = Methods.login_user(correct_email, wrong_password)
+        response = UserMethods.login_user(correct_email, wrong_password)
         assert Checker.check_status_code(response, UNAUTHORIZED_CODE) and \
                Checker.check_response_field(response, 'message', LOGIN_FAILED['message'])

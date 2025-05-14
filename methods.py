@@ -5,7 +5,7 @@ import requests
 from data import *
 
 
-class Methods:
+class UserMethods:
     @staticmethod
     @allure.step("Регистрация пользователя: {email}")
     def register_user(email, password, name):
@@ -30,6 +30,8 @@ class Methods:
         headers = {'Authorization': token}
         return requests.patch(USER, json=data, headers=headers)
 
+
+class OrderMethods:
     @staticmethod
     @allure.step("Создание заказа")
     def create_order(token, ingredients):
@@ -38,12 +40,14 @@ class Methods:
         return requests.post(ORDERS, json=data, headers=headers)
 
     @staticmethod
-    @allure.step("Получение списка ингредиентов")
-    def get_ingredients():
-        return requests.get(INGREDIENTS)
-
-    @staticmethod
     @allure.step("Получение заказов пользователя")
     def get_user_orders(token):
         headers = {'Authorization': token}
         return requests.get(ORDERS, headers=headers)
+
+
+class IngredientsMethods:
+    @staticmethod
+    @allure.step("Получение списка ингредиентов")
+    def get_ingredients():
+        return requests.get(INGREDIENTS)

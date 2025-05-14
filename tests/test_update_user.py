@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from methods import Methods
+from methods import UserMethods
 from data import *
 from helpers import Checker
 
@@ -15,7 +15,7 @@ class TestUpdateUser:
     def test_update_authorized_user(self, new_user, update_field):
         new_data = generate_user()
         payload = {update_field: new_data[update_field]}
-        response = Methods.update_user(new_user['access_token'], **payload)
+        response = UserMethods.update_user(new_user['access_token'], **payload)
         assert Checker.check_status_code(response, SUCCESS_CODE) and \
                Checker.check_user_field(response, update_field, new_data[update_field])
 
@@ -25,6 +25,6 @@ class TestUpdateUser:
     @pytest.mark.parametrize("field", ["email", "name"])
     def test_update_unauthorized_user(self, field):
         new_data = generate_user()
-        response = Methods.update_user("", **{field: new_data[field]})
+        response = UserMethods.update_user("", **{field: new_data[field]})
         assert Checker.check_status_code(response, UNAUTHORIZED_CODE) and \
                Checker.check_response_field(response, 'message', UPDATE_USER_UNAUTHORIZED['message'])
