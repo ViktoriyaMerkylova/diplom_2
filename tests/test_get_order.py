@@ -12,7 +12,6 @@ class TestGetUserOrders:
     @allure.title("авторизованный пользователь")
     @pytest.mark.positive
     def test_get_orders_authorized(self, new_user, create_new_order):
-        create_new_order()
         response = OrderMethods.get_user_orders(new_user['access_token'])
         assert Checker.check_status_code(response, SUCCESS_CODE) and \
             Checker.check_field_exists(response, 'orders') and \

@@ -11,6 +11,8 @@ USER = f"{BASE_URL}/api/auth/user"
 ORDERS = f"{BASE_URL}/api/orders"
 INGREDIENTS = f"{BASE_URL}/api/ingredients"
 
+wrong_email = "error@gmail.com"
+wrong_password = "errorpassword"
 
 fake = Faker()
 

@@ -20,7 +20,6 @@ class TestLoginUser:
     @pytest.mark.negative
     def test_login_with_wrong_email(self, create_user):
         correct_email, correct_password, _ = create_user
-        wrong_email = "error@gmail.com"
 
         response = UserMethods.login_user(wrong_email, correct_password)
         assert Checker.check_status_code(response, UNAUTHORIZED_CODE) and \
@@ -30,7 +29,6 @@ class TestLoginUser:
     @pytest.mark.negative
     def test_login_with_wrong_password(self, create_user):
         correct_email, correct_password, _ = create_user
-        wrong_password = "errorpassword"
 
         response = UserMethods.login_user(correct_email, wrong_password)
         assert Checker.check_status_code(response, UNAUTHORIZED_CODE) and \
